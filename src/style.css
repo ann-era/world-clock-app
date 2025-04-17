@@ -3,11 +3,18 @@
   padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: #f3fde8;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  display: flex;
+  align-items: center;
 }
 
 .container {
@@ -19,6 +26,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 30px;
 }
 
@@ -27,15 +35,12 @@ h1 {
   font-size: 60px;
   font-weight: 700;
   line-height: 0.9;
-  flex: 1;
 }
 
 .app-setting {
   display: flex;
   gap: 10px;
-  flex-shrink: 0;
-  align-items: center;
-  padding-top: 10px;
+  padding-top: 15px;
 }
 
 .theme {
@@ -62,8 +67,50 @@ h1 {
   cursor: pointer;
 }
 
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.city-card {
+  background-color: #ffffff;
+  align-items: center;
+  flex: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-right: 10px;
+}
+
+.city-clock {
+  font-size: 70px;
+}
+
+.city-info {
+  color: #5c8374;
+  font-size: 20px;
+}
+
+.city-time {
+  color: #2f4f4f;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 0.9;
+}
+
 footer {
   color: #1b3b32;
   font-size: 12px;
   text-align: center;
+  margin-top: 20px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #1b3b32;
+}
+
+footer a:hover {
+  color: #93b1a6;
 }
