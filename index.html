@@ -13,30 +13,75 @@
     />
   </head>
   <body>
-    <h1>World Clock</h1>
-    <footer>
-      Coded with ❤️ by
-      <a
-        href="https://github.com/ann-era"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Ann D.J.</a
-      >
-      | Open-sourced on
-      <a
-        href="https://github.com/ann-era/world-clock-app.git"
-        target="_blank"
-        rel="noopener noreferrer"
-        >GitHub</a
-      >
-      | Hosted by
-      <a
-        href="https://adj-world-clock-app.netlify.app/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Netlify</a
-      >
-    </footer>
+    <div class="container">
+      <header>
+        <button class="theme">🌓</button>
+        <h1>World Clock</h1>
+        <select class="cities">
+          <option value="los angeles">Los Angeles</option>
+          <option value="sydney">Sydney</option>
+          <option value="tokyo">Tokyo</option>
+          <option value="paris">Paris</option>
+        </select>
+      </header>
+      <main>
+        <div class="city-card">
+          <div class="city-clock">🕒</div>
+          <div class="city-info">
+            Los Angeles
+            <div class="city-time">12:00 AM</div>
+            17 Apr 2025
+          </div>
+        </div>
+        <div class="city-card">
+          <div class="city-clock">🕒</div>
+          <div class="city-info">
+            Sydney
+            <div class="city-time">12:00 AM</div>
+            17 Apr 2025
+          </div>
+        </div>
+        <div class="city-card">
+          <div class="city-clock">🕒</div>
+          <div class="city-info">
+            Tokyo
+            <div class="city-time">12:00 AM</div>
+            17 Apr 2025
+          </div>
+        </div>
+        <div class="city-card">
+          <div class="city-clock">🕒</div>
+          <div class="city-info">
+            Paris
+            <div class="city-time">12:00 AM</div>
+            17 Apr 2025
+          </div>
+        </div>
+      </main>
+      <footer>
+        Coded with ❤️ by
+        <a
+          href="https://github.com/ann-era"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Ann D.J.</a
+        >
+        | Open-sourced on
+        <a
+          href="https://github.com/ann-era/world-clock-app.git"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+        | Hosted by
+        <a
+          href="https://adj-world-clock-app.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Netlify</a
+        >
+      </footer>
+    </div>
     <script src="src/index.js"></script>
   </body>
 </html>
