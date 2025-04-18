@@ -17,6 +17,10 @@ body {
   align-items: center;
 }
 
+body.dark-theme {
+  background-color: #0f172a;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -35,6 +39,10 @@ h1 {
   font-size: 60px;
   font-weight: 700;
   line-height: 0.9;
+}
+
+h1.dark-theme {
+  color: #ffffff;
 }
 
 .app-setting {
@@ -67,6 +75,13 @@ h1 {
   cursor: pointer;
 }
 
+.theme.dark-theme,
+.cities.dark-theme {
+  background-color: #334155;
+  border: none;
+  color: #94a3b8;
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
@@ -83,6 +98,10 @@ main {
   padding-right: 10px;
 }
 
+.city-card.dark-theme {
+  background-color: #475569;
+}
+
 .city-clock {
   font-size: 70px;
 }
@@ -92,11 +111,19 @@ main {
   font-size: 20px;
 }
 
+.city-info.dark-theme {
+  color: #94a3b8;
+}
+
 .city-time {
   color: #2f4f4f;
   font-size: 40px;
   font-weight: 600;
   line-height: 0.9;
+}
+
+.city-time.dark-theme {
+  color: #ffffff;
 }
 
 footer {
@@ -113,4 +140,13 @@ footer a {
 
 footer a:hover {
   color: #93b1a6;
+}
+
+footer.dark-theme,
+footer.dark-theme a {
+  color: #ffffff;
+}
+
+footer.dark-theme a:hover {
+  color: #94a3b8;
 }
