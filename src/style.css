@@ -87,7 +87,7 @@ h1.dark-theme {
 
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1rem;
 }
 
@@ -123,7 +123,7 @@ main {
   color: #2f4f4f;
   font-size: 2rem;
   font-weight: 600;
-  line-height: 0.9;
+  line-height: 1.15;
 }
 
 .city-time.dark-theme {
