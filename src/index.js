@@ -20,6 +20,14 @@ function generateCityCard(id, cityName, time = "", date = "") {
   `;
 }
 
+function generateBackButton() {
+  const button = document.createElement("button");
+  button.className = "back-button theme-target dark-theme";
+  button.innerText = "← Back to All Cities";
+  button.addEventListener("click", renderDefaultCities);
+  return button;
+}
+
 function updateCityDisplay(zone, id) {
   const city = document.querySelector(`#${id}`);
   if (city) {
@@ -36,6 +44,7 @@ function updateAllTimes() {
 }
 
 function renderDefaultCities() {
+  clearInterval(localTimeInterval);
   const displayCity = document.querySelector("#content");
   displayCity.innerHTML = "";
 
@@ -49,6 +58,7 @@ function renderDefaultCities() {
   }
 
   updateAllTimes();
+  checkThemeSetting();
 }
 
 function updateLocalTimeDisplay() {
@@ -59,8 +69,14 @@ function updateLocalTimeDisplay() {
   const date = now.tz(localZone).format("DD MMM YYYY");
 
   const displayCity = document.querySelector("#content");
-  displayCity.innerHTML = generateCityCard("local", localCity, time, date);
+  displayCity.innerHTML = "";
 
+  const wrapper = document.createElement("div");
+  wrapper.className = "single-city-view";
+  wrapper.innerHTML = generateCityCard("local", localCity, time, date);
+  wrapper.appendChild(generateBackButton());
+
+  displayCity.appendChild(wrapper);
   checkThemeSetting();
 }
 
@@ -76,12 +92,19 @@ function changeToCity(event) {
     const cityName = cityDetails.city;
     const now = moment().tz(timezone);
 
-    displayCity.innerHTML = generateCityCard(
+    displayCity.innerHTML = ""; // Clear existing content
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "single-city-view";
+    wrapper.innerHTML = generateCityCard(
       cityId,
       cityName,
       now.format("h:mm:ss A"),
       now.format("DD MMM YYYY")
     );
+    wrapper.appendChild(generateBackButton());
+
+    displayCity.appendChild(wrapper);
 
     updateCityDisplay(timezone, cityId);
   } else if (timezone === "local") {

@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html,
@@ -15,6 +16,7 @@ body {
   font-style: normal;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 body.dark-theme {
@@ -154,4 +156,42 @@ footer.dark-theme a {
 
 footer.dark-theme a:hover {
   color: #94a3b8;
+}
+
+.single-city-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.back-button {
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: solid 2px #2f4f4f;
+  color: #2f4f4f;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensures that the button takes full width of the container */
+  display: flex;
+  justify-content: flex-start; /* Aligns the button to the left */
+  font-size: 14px;
+}
+
+.back-button:hover {
+  background-color: #93b1a6;
+}
+
+.back-button.dark-theme {
+  border: none;
+  background-color: #475569;
+  color: #ffffff;
+}
+
+.back-button.dark-theme:hover {
+  background-color: #94a3b8;
 }
