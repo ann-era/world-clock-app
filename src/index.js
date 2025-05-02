@@ -10,7 +10,21 @@ const cities = [
 function generateCityCard(id, cityName, time = "", date = "") {
   return `
     <div class="city-card theme-target dark-theme" id="${id}">
-      <div class="city-clock">🕒</div>
+      <div class="city-clock">
+        <div id="${id}-clock" class="analog_clock">
+          <div>
+            <div class="info date"></div>
+            <div class="info time"></div>
+          </div>
+          <div class="dot"></div>
+          <div>
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+          </div>
+          <div class="diallines"></div>
+        </div>
+      </div>
       <div class="city-info theme-target dark-theme">
         ${cityName}
         <div class="city-time theme-target dark-theme">${time}</div>
@@ -55,6 +69,7 @@ function renderDefaultCities() {
     const date = now.format("DD MMM YYYY");
     const cityCard = generateCityCard(city.id, city.city, time, date);
     displayCity.innerHTML += cityCard;
+    int_shonir_analog_clock(`${city.id}-clock`, city.zone);
   }
 
   updateAllTimes();
@@ -77,6 +92,7 @@ function updateLocalTimeDisplay() {
   wrapper.appendChild(generateBackButton());
 
   displayCity.appendChild(wrapper);
+  int_shonir_analog_clock("local-clock", localZone);
   checkThemeSetting();
 }
 
@@ -105,6 +121,8 @@ function changeToCity(event) {
     wrapper.appendChild(generateBackButton());
 
     displayCity.appendChild(wrapper);
+
+    int_shonir_analog_clock(`${cityId}-clock`, timezone);
 
     updateCityDisplay(timezone, cityId);
   } else if (timezone === "local") {

@@ -103,6 +103,7 @@ main {
   background-color: #ffffff;
   width: 100%;
   box-sizing: border-box;
+  flex-wrap: nowrap;
 }
 
 .city-card.dark-theme {
@@ -110,10 +111,17 @@ main {
 }
 
 .city-clock {
-  font-size: 70px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .city-info {
+  flex-grow: 1;
   color: #5c8374;
   font-size: 1.2rem;
 }
@@ -194,4 +202,21 @@ footer.dark-theme a:hover {
 
 .back-button.dark-theme:hover {
   background-color: #94a3b8;
+}
+
+.analog_clock {
+  width: 180px;
+  height: 180px;
+  transform: scale(0.5);
+  transform-origin: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+body:not(.dark-theme) .analog_clock .diallines {
+  background-color: black !important;
 }
