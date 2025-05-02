@@ -19,12 +19,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.5s ease-in-out;
 }
 
 body.dark-theme {
   background: url("../img/ghibli-inspired-background-dark.png") no-repeat center
     center fixed;
   background-size: cover;
+  transition: background 0.5s ease-in-out;
 }
 
 .container {
