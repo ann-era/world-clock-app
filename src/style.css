@@ -24,6 +24,7 @@ body {
 body.dark-theme {
   background: url("../img/ghibli-inspired-background-dark.png") no-repeat center
     center fixed;
+  background-size: cover;
 }
 
 .container {
