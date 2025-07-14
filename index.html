@@ -1,83 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>World Clock App</title>
-    <link rel="stylesheet" href="src/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
       rel="stylesheet"
     />
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/shonirits/shonir-analog-clock@main/shonir-analog-clock/0.1/css/shonir_analog_clock.css"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
     />
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/shonirits/shonir-analog-clock@main/shonir-analog-clock/0.1/js/shonir_analog_clock.js"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.47/moment-timezone-with-data.min.js"></script>
+    <link rel="stylesheet" href="src/style.css" />
   </head>
-  <body class="theme-target dark-theme">
-    <div class="container">
-      <header>
-        <h1 class="theme-target dark-theme"><a href="/">World Clock</a></h1>
-        <div class="app-setting">
-          <select class="cities theme-target dark-theme" id="city-select">
-            <option value="">-- Choose City --</option>
-            <option value="local">My Local Time</option>
-            <option value="America/Los_Angeles">Los Angeles</option>
-            <option value="Australia/Sydney">Sydney</option>
-            <option value="Asia/Tokyo">Tokyo</option>
-            <option value="Europe/Paris">Paris</option>
-          </select>
-          <button class="theme theme-target dark-theme">🌓</button>
+  <body>
+    <header class="container py-3">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
+        <h1 class="mb-2 mb-sm-0">World Clock</h1>
+        <div class="d-flex align-items-center gap-2 ms-auto">
+          <button
+            class="btn btn-outline-secondary btn-sm rounded-circle"
+            style="width: 32px; height: 32px; padding: 0"
+            id="theme-toggle-button"
+          >
+            🌓
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary d-none d-md-block local-time-button"
+          >
+            Local Timezone
+          </button>
+          <input
+            type="search"
+            class="form-control d-none d-md-block search-input"
+            placeholder="Search city..."
+            style="max-width: 200px"
+          />
         </div>
-      </header>
-      <main id="content">
-        <div class="city-card theme-target dark-theme" id="los-angeles">
-          <div class="city-clock"></div>
-          <div class="city-info theme-target dark-theme">
-            Los Angeles
-            <div class="city-time theme-target dark-theme"></div>
-            <div class="city-date"></div>
-          </div>
+        <div class="col-12 mt-2 d-block d-md-none">
+          <button
+            type="button"
+            class="btn btn-secondary w-100 local-time-button"
+          >
+            Show Local Timezone
+          </button>
         </div>
-        <div class="city-card theme-target dark-theme" id="sydney">
-          <div class="city-clock"></div>
-          <div class="city-info theme-target dark-theme">
-            Sydney
-            <div class="city-time theme-target dark-theme"></div>
-            <div class="city-date"></div>
-          </div>
+        <div class="col-12 mt-2 d-block d-md-none">
+          <input
+            type="search"
+            class="form-control search-input"
+            placeholder="Search city..."
+          />
         </div>
-        <div class="city-card theme-target dark-theme" id="tokyo">
-          <div class="city-clock"></div>
-          <div class="city-info theme-target dark-theme">
-            Tokyo
-            <div class="city-time theme-target dark-theme"></div>
-            <div class="city-date"></div>
-          </div>
-        </div>
-        <div class="city-card theme-target dark-theme" id="paris">
-          <div class="city-clock"></div>
-          <div class="city-info theme-target dark-theme">
-            Paris
-            <div class="city-time theme-target dark-theme"></div>
-            <div class="city-date"></div>
-          </div>
-        </div>
-      </main>
-      <footer class="theme-target dark-theme">
+      </div>
+    </header>
+    <div class="container py-5">
+      <div class="row" id="clocks-container"></div>
+    </div>
+    <footer>
+      <p class="text-center text-body-secondary">
         Coded with ❤️ by
         <a
           href="https://github.com/ann-era"
           target="_blank"
           rel="noopener noreferrer"
+          class="text-muted text-decoration-none hover-text"
           >Ann D.J.</a
         >
         | Open-sourced on
@@ -85,6 +78,7 @@
           href="https://github.com/ann-era/world-clock-app.git"
           target="_blank"
           rel="noopener noreferrer"
+          class="text-muted text-decoration-none hover-text"
           >GitHub</a
         >
         | Hosted on
@@ -92,10 +86,18 @@
           href="https://adj-world-clock-app.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
+          class="text-muted text-decoration-none hover-text"
           >Netlify</a
         >
-      </footer>
-    </div>
+      </p>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.6.0/moment-timezone-with-data.min.js"></script>
     <script src="src/index.js"></script>
   </body>
 </html>

@@ -1,157 +1,158 @@
-let localTimeInterval = null;
-
-const cities = [
-  { id: "los-angeles", zone: "America/Los_Angeles", city: "Los Angeles" },
-  { id: "sydney", zone: "Australia/Sydney", city: "Sydney" },
-  { id: "tokyo", zone: "Asia/Tokyo", city: "Tokyo" },
-  { id: "paris", zone: "Europe/Paris", city: "Paris" },
+let cities = [
+  { name: "New York", timezone: "America/New_York" },
+  { name: "London", timezone: "Europe/London" },
+  { name: "Tokyo", timezone: "Asia/Tokyo" },
+  { name: "Sydney", timezone: "Australia/Sydney" },
 ];
 
-function generateCityCard(id, cityName, time = "", date = "") {
-  return `
-    <div class="city-card theme-target dark-theme" id="${id}">
-      <div class="city-clock">
-        <div id="${id}-clock" class="analog_clock">
-          <div>
-            <div class="info date"></div>
-            <div class="info time"></div>
+function toTitleCase(text) {
+  return text
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function defaultClockCards() {
+  let clockContainer = document.querySelector("#clocks-container");
+  clockContainer.innerHTML = "";
+  cities.forEach((city) => {
+    let time = moment().tz(city.timezone).format("hh:mm:ss A");
+    let date = moment().tz(city.timezone).format("DD MMMM YYYY");
+
+    clockContainer.innerHTML += `
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-success mb-3">${city.name}</h5>
+            <p class="display-6 mb-2">${time}</p>
+            <p class="text-muted">${date}</p>
           </div>
-          <div class="dot"></div>
-          <div>
-            <div class="hour-hand"></div>
-            <div class="minute-hand"></div>
-            <div class="second-hand"></div>
-          </div>
-          <div class="diallines"></div>
         </div>
       </div>
-      <div class="city-info theme-target dark-theme">
-        ${cityName}
-        <div class="city-time theme-target dark-theme">${time}</div>
-        <div class="city-date">${date}</div>
+    `;
+  });
+}
+
+function fetchUserTime() {
+  let userZone = moment.tz.guess();
+  let userCity = userZone.split("/").pop().replace("_", " ");
+  fetchCityInfo(userCity, userZone);
+}
+
+function fetchCityInfo(targetCity, zone) {
+  clearInterval(defaultCitiesInterval);
+  clearInterval(targetCityInterval);
+
+  function updateClock() {
+    let targetTime = moment().tz(zone).format("hh:mm:ss A");
+    let targetDate = moment().tz(zone).format("DD MMMM YYYY");
+    updateClockCard(targetCity, targetTime, targetDate);
+  }
+
+  updateClock();
+  targetCityInterval = setInterval(updateClock, 1000);
+}
+
+function updateClockCard(city, time, date) {
+  let clockContainer = document.querySelector("#clocks-container");
+  clockContainer.innerHTML = "";
+  clockContainer.innerHTML = `
+      <div class="col-12 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-success mb-3">${city}</h5>
+            <p class="display-6 mb-2">${time}</p>
+            <p class="text-muted">${date}</p>
+          </div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
 }
 
-function generateBackButton() {
-  const button = document.createElement("button");
-  button.className = "back-button theme-target dark-theme";
-  button.innerText = "← Back to All Cities";
-  button.addEventListener("click", renderDefaultCities);
-  return button;
+function errorClockCard() {
+  clearInterval(targetCityInterval);
+  clearInterval(defaultCitiesInterval);
+  let clockContainer = document.querySelector("#clocks-container");
+  clockContainer.innerHTML = "";
+  clockContainer.innerHTML = `
+      <div class="col-12 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
+          <div class="card-body text-center">
+            <p class="text-muted">Loading...</p>
+          </div>
+        </div>
+      </div>
+    `;
 }
 
-function updateCityDisplay(zone, id) {
-  const city = document.querySelector(`#${id}`);
-  if (city) {
-    const cityTime = city.querySelector(".city-time");
-    const cityDate = city.querySelector(".city-date");
-    const now = moment().tz(zone);
-    cityTime.innerText = now.format("h:mm:ss A");
-    cityDate.innerText = now.format("DD MMM YYYY");
-  }
-}
-
-function updateAllTimes() {
-  cities.forEach((city) => updateCityDisplay(city.zone, city.id));
-}
-
-function renderDefaultCities() {
-  clearInterval(localTimeInterval);
-  const displayCity = document.querySelector("#content");
-  displayCity.innerHTML = "";
-
-  for (let i = 0; i < cities.length; i++) {
-    const city = cities[i];
-    const now = moment().tz(city.zone);
-    const time = now.format("h:mm:ss A");
-    const date = now.format("DD MMM YYYY");
-    const cityCard = generateCityCard(city.id, city.city, time, date);
-    displayCity.innerHTML += cityCard;
-    int_shonir_analog_clock(`${city.id}-clock`, city.zone);
-  }
-
-  updateAllTimes();
-  checkThemeSetting();
-}
-
-function updateLocalTimeDisplay() {
-  const now = moment();
-  const localZone = moment.tz.guess();
-  const localCity = localZone.split("/").pop().replace("_", " ");
-  const time = now.tz(localZone).format("h:mm:ss A");
-  const date = now.tz(localZone).format("DD MMM YYYY");
-
-  const displayCity = document.querySelector("#content");
-  displayCity.innerHTML = "";
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "single-city-view";
-  wrapper.innerHTML = generateCityCard("local", localCity, time, date);
-  wrapper.appendChild(generateBackButton());
-
-  displayCity.appendChild(wrapper);
-  int_shonir_analog_clock("local-clock", localZone);
-  checkThemeSetting();
-}
-
-function changeToCity(event) {
-  const timezone = event.target.value;
-  const displayCity = document.querySelector("#content");
-
-  clearInterval(localTimeInterval);
-
-  if (timezone && timezone !== "local") {
-    const cityDetails = cities.find((item) => item.zone === timezone);
-    const cityId = cityDetails.id;
-    const cityName = cityDetails.city;
-    const now = moment().tz(timezone);
-
-    displayCity.innerHTML = ""; // Clear existing content
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "single-city-view";
-    wrapper.innerHTML = generateCityCard(
-      cityId,
-      cityName,
-      now.format("h:mm:ss A"),
-      now.format("DD MMM YYYY")
-    );
-    wrapper.appendChild(generateBackButton());
-
-    displayCity.appendChild(wrapper);
-
-    int_shonir_analog_clock(`${cityId}-clock`, timezone);
-
-    updateCityDisplay(timezone, cityId);
-  } else if (timezone === "local") {
-    updateLocalTimeDisplay();
-    localTimeInterval = setInterval(updateLocalTimeDisplay, 1000);
+function toggleTheme() {
+  let html = document.documentElement;
+  let currentTheme = html.getAttribute("data-bs-theme");
+  if (currentTheme === "dark") {
+    html.setAttribute("data-bs-theme", "light");
   } else {
-    renderDefaultCities();
-  }
-
-  checkThemeSetting();
-}
-
-function checkThemeSetting() {
-  let body = document.querySelector("body");
-  if (!body.classList.contains("dark-theme")) {
-    let elements = document.querySelectorAll(".dark-theme");
-    elements.forEach((el) => el.classList.remove("dark-theme"));
+    html.setAttribute("data-bs-theme", "dark");
   }
 }
 
-function changeTheme() {
-  let updateTheme = document.querySelectorAll(".theme-target");
-  updateTheme.forEach((el) => el.classList.toggle("dark-theme"));
+function showDefault() {
+  clearInterval(targetCityInterval);
+  clearInterval(defaultCitiesInterval);
+
+  defaultClockCards();
+  defaultCitiesInterval = setInterval(defaultClockCards, 1000);
 }
 
-// Event Listeners
-document.querySelector(".theme").addEventListener("click", changeTheme);
-document.querySelector("#city-select").addEventListener("change", changeToCity);
+function getSearchInput(event) {
+  if (event.key === "Enter") {
+    let cityInput = event.target.value.trim();
+    if (cityInput != "") {
+      getInputTimezone(cityInput);
+    }
+  }
+}
 
-// Initial load
-renderDefaultCities();
-setInterval(updateAllTimes, 1000);
+async function getInputTimezone(inputCity) {
+  let apiKey = "cc90ac935df148e6b39810d6f15a33aa";
+  let url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+    inputCity
+  )}&key=${apiKey}`;
+
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
+
+    if (data.results.length > 0) {
+      let result = data.results[0];
+      let identifiedZone = result.annotations.timezone.name;
+      fetchCityInfo(toTitleCase(inputCity), identifiedZone);
+    } else {
+      alert("City not found.");
+    }
+  } catch (error) {
+    console.error("API error: ", error);
+    alert("There was a problem fetching the timezone.");
+    errorClockCard();
+  }
+}
+
+let defaultCitiesInterval;
+let targetCityInterval;
+showDefault();
+
+let h1 = document.querySelector("h1");
+h1.addEventListener("click", showDefault);
+
+let localTimeButton = document.querySelectorAll(".local-time-button");
+localTimeButton.forEach((button) => {
+  button.addEventListener("click", fetchUserTime);
+});
+
+let themeToggleButton = document.querySelector("#theme-toggle-button");
+themeToggleButton.addEventListener("click", toggleTheme);
+
+let searchInput = document.querySelectorAll(".search-input");
+searchInput.forEach((searchCity) => {
+  searchCity.addEventListener("keydown", getSearchInput);
+});

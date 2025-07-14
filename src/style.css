@@ -1,228 +1,41 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
 body {
   font-family: "Comfortaa", cursive;
-  font-weight: 400;
-  font-style: normal;
-  background: url("../img/ghibli-inspired-background-light.png") no-repeat
-    center center fixed;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.5s ease-in-out;
-}
-
-body.dark-theme {
-  background: url("../img/ghibli-inspired-background-dark.png") no-repeat center
+  background: url(../img/ghibli-inspired-background-light.png) no-repeat center
     center fixed;
   background-size: cover;
-  transition: background 0.5s ease-in-out;
-}
-
-.container {
-  max-width: 750px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-h1 a {
-  color: #1b3b32;
-  font-size: 60px;
-  font-weight: 700;
-  line-height: 0.9;
-  text-decoration: none;
-}
-
-h1.dark-theme a {
-  color: #ffffff;
-}
-
-.app-setting {
-  display: flex;
-  gap: 10px;
-  padding-top: 15px;
-}
-
-.theme {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: solid 2px #93b1a6;
-  background-color: #ffffff;
-  font-size: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cities {
-  align-self: center;
-  height: 25px;
-  border-radius: 10px;
-  border: solid 2px #93b1a6;
-  background-color: #ffffff;
-  font-size: 12px;
-  color: #5c8374;
-  cursor: pointer;
-}
-
-.theme.dark-theme,
-.cities.dark-theme {
-  background-color: #334155;
-  border: none;
-  color: #94a3b8;
-}
-
-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1rem;
-}
-
-.city-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f3fde8;
-  width: 100%;
-  box-sizing: border-box;
-  flex-wrap: nowrap;
-}
-
-.city-card.dark-theme {
-  background-color: #475569;
-}
-
-.city-clock {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.city-info {
-  flex-grow: 1;
-  color: #5c8374;
-  font-size: 1.2rem;
-}
-
-.city-info.dark-theme {
-  color: #94a3b8;
-}
-
-.city-time {
-  color: #2f4f4f;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.15;
-}
-
-.city-time.dark-theme {
-  color: #ffffff;
-}
-
-footer {
-  color: #f3fde8;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-footer a {
-  text-decoration: none;
-  color: #f3fde8;
-}
-
-footer a:hover {
-  color: #93b1a6;
-}
-
-footer.dark-theme,
-footer.dark-theme a {
-  color: #ffffff;
-}
-
-footer.dark-theme a:hover {
-  color: #94a3b8;
-}
-
-.single-city-view {
+  transition: background-image 0.5s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  width: 100%;
-  padding: 20px 0;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-.back-button {
-  font-size: 1.1rem;
-  padding: 10px 15px;
-  background-color: transparent;
-  border-radius: 8px;
-  border: solid 2px #2f4f4f;
-  color: #2f4f4f;
+[data-bs-theme="dark"] body {
+  background: url(../img/ghibli-inspired-background-dark.png) no-repeat center
+    center fixed;
+  background-size: cover;
+}
+
+input[type="search"]:focus {
+  border-color: #6c757d;
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+  outline: none;
+}
+
+h1 {
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Ensures that the button takes full width of the container */
-  display: flex;
-  justify-content: flex-start; /* Aligns the button to the left */
-  font-size: 14px;
+  transition: color 0.3s ease;
 }
 
-.back-button:hover {
-  background-color: #93b1a6;
+h1:hover {
+  color: #6c757d;
 }
 
-.back-button.dark-theme {
-  border: none;
-  background-color: #475569;
-  color: #ffffff;
+footer a {
+  transition: color 0.3s ease;
 }
 
-.back-button.dark-theme:hover {
-  background-color: #94a3b8;
-}
-
-.analog_clock {
-  width: 180px;
-  height: 180px;
-  transform: scale(0.5);
-  transform-origin: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-body:not(.dark-theme) .analog_clock .diallines {
-  background-color: black !important;
+.hover-text:hover {
+  color: var(--bs-success) !important;
 }
