@@ -104,11 +104,7 @@ function getSearchInput(event) {
 }
 
 async function getInputTimezone(inputCity) {
-  let apiKey = "cc90ac935df148e6b39810d6f15a33aa";
-  let url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-    inputCity
-  )}&key=${apiKey}`;
-
+  let url = `/.netlify/functions/geocode?city=${encodeURIComponent(inputCity)}`;
   try {
     let response = await fetch(url);
     let data = await response.json();
@@ -122,8 +118,8 @@ async function getInputTimezone(inputCity) {
       errorClockCard("City not found. Please try another.");
     }
   } catch (error) {
-    console.error("API error: ", error);
-    errorClockCard("API error: There was a problem fetching the timezone.");
+    console.error("Function error: ", error);
+    errorClockCard("There was a problem contacting the server.");
   }
 }
 
