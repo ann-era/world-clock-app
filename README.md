@@ -18,6 +18,7 @@ A responsive, theme-aware web app that shows the current time and date for popul
 - 🌗 **Dark/Light Mode**: Toggle between light and dark themes with smooth background transitions.
 - 📱 **Responsive Design**: Mobile-first, fully responsive layout using Bootstrap 5.
 - 🎨 **Custom Styling**: Ghibli-inspired backgrounds and a soft `Comfortaa` font for a modern, friendly UI.
+- 🔐 **Secure API Calls**: Protects sensitive API keys using Netlify serverless functions.
 
 ---
 
@@ -34,7 +35,7 @@ A responsive, theme-aware web app that shows the current time and date for popul
 ## 🔍 How It Works
 
 - Default: Shows four global cities using predefined timezones.
-- Search: Uses OpenCage API to find a city, get its timezone, and display its clock.
+- Search: Calls a Netlify function which uses OpenCage to find a city’s timezone and returns its current time.
 - Local: Auto-detects user timezone with `moment.tz.guess()`.
 - Updates: Clock refreshes every second using `setInterval`.
 
