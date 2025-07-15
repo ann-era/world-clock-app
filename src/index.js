@@ -5,14 +5,6 @@ let cities = [
   { name: "Sydney", timezone: "Australia/Sydney" },
 ];
 
-function toTitleCase(text) {
-  return text
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
 function defaultClockCards() {
   let clockContainer = document.querySelector("#clocks-container");
   clockContainer.innerHTML = "";
@@ -126,7 +118,8 @@ async function getInputTimezone(inputCity) {
     if (data.results.length > 0) {
       let result = data.results[0];
       let identifiedZone = result.annotations.timezone.name;
-      fetchCityInfo(toTitleCase(inputCity), identifiedZone);
+      let cityName = result.formatted;
+      fetchCityInfo(cityName, identifiedZone);
     } else {
       alert("City not found.");
     }
@@ -137,22 +130,25 @@ async function getInputTimezone(inputCity) {
   }
 }
 
+function eventListener() {
+  let h1 = document.querySelector("h1");
+  h1.addEventListener("click", showDefault);
+
+  let localTimeButton = document.querySelectorAll(".local-time-button");
+  localTimeButton.forEach((button) => {
+    button.addEventListener("click", fetchUserTime);
+  });
+
+  let themeToggleButton = document.querySelector("#theme-toggle-button");
+  themeToggleButton.addEventListener("click", toggleTheme);
+
+  let searchInput = document.querySelectorAll(".search-input");
+  searchInput.forEach((searchCity) => {
+    searchCity.addEventListener("keydown", getSearchInput);
+  });
+}
+
 let defaultCitiesInterval;
 let targetCityInterval;
 showDefault();
-
-let h1 = document.querySelector("h1");
-h1.addEventListener("click", showDefault);
-
-let localTimeButton = document.querySelectorAll(".local-time-button");
-localTimeButton.forEach((button) => {
-  button.addEventListener("click", fetchUserTime);
-});
-
-let themeToggleButton = document.querySelector("#theme-toggle-button");
-themeToggleButton.addEventListener("click", toggleTheme);
-
-let searchInput = document.querySelectorAll(".search-input");
-searchInput.forEach((searchCity) => {
-  searchCity.addEventListener("keydown", getSearchInput);
-});
+eventListener();
