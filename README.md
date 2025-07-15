@@ -1,6 +1,6 @@
 # 🌍 World Clock App
 
-A responsive, theme-aware web app that shows the current time and date for popular global cities — with the ability to search for any city using its timezone via the OpenCage Geocoding API.
+A responsive, theme-aware web app that shows the current time and date for popular global cities with the ability to search for any city using its timezone via the OpenCage Geocoding API.
 
 ![World Clock App Screenshot](./screenshot/WorldClock_Demo_ScreenRecord.gif)
 
