@@ -69,8 +69,8 @@ function errorClockCard(message) {
   clockContainer.innerHTML = "";
   clockContainer.innerHTML = `
       <div class="col-12 mb-4">
-        <div class="card shadow-lg border-0 rounded-4 bg-body h-100ard shadow border-danger text-danger text-center p-4">
-          <p class="mb-0">${message}</p>
+        <div class="card shadow-lg border-danger border-2 text-danger text-center p-4 rounded-4 bg-body h-100">
+          <p class="mb-0 fw-semibold">${message}</p>
         </div>
       </div>
     `;
