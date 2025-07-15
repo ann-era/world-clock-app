@@ -62,17 +62,15 @@ function updateClockCard(city, time, date) {
     `;
 }
 
-function errorClockCard() {
+function errorClockCard(message) {
   clearInterval(targetCityInterval);
   clearInterval(defaultCitiesInterval);
   let clockContainer = document.querySelector("#clocks-container");
   clockContainer.innerHTML = "";
   clockContainer.innerHTML = `
       <div class="col-12 mb-4">
-        <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
-          <div class="card-body text-center">
-            <p class="text-muted">Loading...</p>
-          </div>
+        <div class="card shadow-lg border-0 rounded-4 bg-body h-100ard shadow border-danger text-danger text-center p-4">
+          <p class="mb-0">${message}</p>
         </div>
       </div>
     `;
@@ -121,12 +119,11 @@ async function getInputTimezone(inputCity) {
       let cityName = result.formatted;
       fetchCityInfo(cityName, identifiedZone);
     } else {
-      alert("City not found.");
+      errorClockCard("City not found. Please try another.");
     }
   } catch (error) {
     console.error("API error: ", error);
-    alert("There was a problem fetching the timezone.");
-    errorClockCard();
+    errorClockCard("API error: There was a problem fetching the timezone.");
   }
 }
 
