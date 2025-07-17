@@ -55,7 +55,7 @@ function updateClockCard(city, time, date) {
           <div class="card-body text-center">
             <h5 class="card-title fw-bold text-success mb-3">${city}</h5>
             <p class="display-6 mb-2">${time}</p>
-            <p class="text-muted">${date}</p>
+            <p class="text-muted mb-0">${date}</p>
           </div>
         </div>
       </div>
