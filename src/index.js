@@ -5,18 +5,45 @@ let cities = [
   { name: "Sydney", timezone: "Australia/Sydney" },
 ];
 
+function renderAnalogClock(cityTime) {
+  let digitalTime = moment(cityTime, "hh:mm:ss A");
+  let hours = digitalTime.hours();
+  let minutes = digitalTime.minutes();
+  let seconds = digitalTime.seconds();
+
+  let secondDegrees = (seconds / 60) * 360;
+  let minuteDegrees = ((minutes + seconds / 60) / 60) * 360;
+  let hourDegrees = (((hours % 12) + minutes / 60 + seconds / 3600) / 12) * 360;
+
+  return `
+    <div class = "analog-clock">
+      <div class = "hand hour-hand" style = "transform: rotate(${
+        hourDegrees - 90
+      }deg);"></div>
+      <div class = "hand minute-hand" style = "transform: rotate(${
+        minuteDegrees - 90
+      }deg);"></div>
+      <div class = "hand second-hand" style = "transform: rotate(${
+        secondDegrees - 90
+      }deg);"></div>
+    </div>
+  `;
+}
+
 function defaultClockCards() {
   let clockContainer = document.querySelector("#clocks-container");
   clockContainer.innerHTML = "";
   cities.forEach((city) => {
     let time = moment().tz(city.timezone).format("hh:mm:ss A");
     let date = moment().tz(city.timezone).format("DD MMMM YYYY");
+    let analogClock = renderAnalogClock(time);
 
     clockContainer.innerHTML += `
       <div class="col-md-6 mb-4">
         <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
           <div class="card-body text-center">
             <h5 class="card-title fw-bold text-success mb-3">${city.name}</h5>
+            ${analogClock}
             <p class="display-6 mb-2">${time}</p>
             <p class="text-muted mb-0">${date}</p>
           </div>
@@ -48,12 +75,14 @@ function fetchCityInfo(targetCity, zone) {
 
 function updateClockCard(city, time, date) {
   let clockContainer = document.querySelector("#clocks-container");
+  let analogClock = renderAnalogClock(time);
   clockContainer.innerHTML = "";
   clockContainer.innerHTML = `
       <div class="col-12 mb-4">
         <div class="card shadow-lg border-0 rounded-4 bg-body h-100">
           <div class="card-body text-center">
             <h5 class="card-title fw-bold text-success mb-3">${city}</h5>
+            ${analogClock}
             <p class="display-6 mb-2">${time}</p>
             <p class="text-muted mb-0">${date}</p>
           </div>
