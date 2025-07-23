@@ -32,6 +32,12 @@ h1:hover {
   color: #6c757d;
 }
 
+.card,
+[data-bs-theme="dark"] .card {
+  background-color: rgba(var(--bs-body-bg-rgb), 0.6) !important;
+  backdrop-filter: blur(10px);
+}
+
 footer a {
   transition: color 0.3s ease;
 }
